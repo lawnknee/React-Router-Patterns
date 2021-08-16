@@ -1,27 +1,13 @@
-import './App.css';
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import whiskey from "./whiskey.jpg";
-import duke from "./duke.jpg";
-import perry from "./perry.jpg";
-import tubby from "./tubby.jpg";
-import DogList from './DogList';
-import DogDetails from './DogDetails';
+import React from "react";
+import { useParams } from "react-router-dom"
 
-function App({dogs}) {
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/dogs" >
-          <DogList dogs={dogs}/>
-        </Route>
-        <Route path="/dogs/:name" >
-          <DogDetails dog={dogs}/>
-        </Route>
-        <Redirect to="/dogs" />
-      </Switch>
-    </BrowserRouter>
-  );
+function DogDetails({dogs}) {
+  const { name } = useParams();
+
+  
 }
+
+export default DogDetails
 
 App.defaultProps = {
   dogs: [
@@ -67,5 +53,3 @@ App.defaultProps = {
     }
   ]
 }
-
-export default App;
