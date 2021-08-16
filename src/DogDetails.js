@@ -1,16 +1,10 @@
 import React from "react";
-import { useParams } from "react-router-dom"
+import { useParams, Redirect } from "react-router-dom"
 
-function DogDetails({dogs}) {
-  const { name } = useParams();
+/*
+Displays details about an individual dog, or redirects home if no existing dog.
 
-  
-}
-
-export default DogDetails
-
-App.defaultProps = {
-  dogs: [
+props: [
     {
       name: "Whiskey",
       age: 5,
@@ -20,36 +14,34 @@ App.defaultProps = {
         "Whiskey is a terrible guard dog.",
         "Whiskey wants to cuddle with you!"
       ]
-    },
-    {
-      name: "Duke",
-      age: 3,
-      src: duke,
-      facts: [
-        "Duke believes that ball is life.",
-        "Duke likes snow.",
-        "Duke enjoys pawing other dogs."
-      ]
-    },
-    {
-      name: "Perry",
-      age: 4,
-      src: perry,
-      facts: [
-        "Perry loves all humans.",
-        "Perry demolishes all snacks.",
-        "Perry hates the rain."
-      ]
-    },
-    {
-      name: "Tubby",
-      age: 4,
-      src: tubby,
-      facts: [
-        "Tubby is really stupid.",
-        "Tubby does not like walks.",
-        "Angelina used to hate Tubby, but claims not to anymore."
-      ]
-    }
-  ]
+    }, ...]
+
+    Can break into more components, dogdetail which is just the presentational
+    and another one to contain the logic to find the dog
+*/
+function DogDetails({ dogs }) {
+  const { name } = useParams();
+  let dog = dogs.find(
+    dog => dog.name.toLowerCase() === name.toLowerCase()
+  );
+  
+  if (!dog) {
+    return <Redirect to="/dogs" />
+  }
+
+  return (
+    <div className="DogList-dog">
+      <h2>{dog.name}</h2>
+      <p>Age: {dog.age}</p>
+      <img src={dog.src} alt={dog.name} />
+      <ul>
+        {dog.facts.map((fact, idx) => (
+          <li key={`${dog.name}-${idx}`}>{fact}</li>
+        ))}
+      </ul>
+    </div>
+  )
+
 }
+
+export default DogDetails

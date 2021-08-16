@@ -7,6 +7,9 @@ import tubby from "./tubby.jpg";
 import DogList from './DogList';
 import DogDetails from './DogDetails';
 
+/*
+Routes for the dogs, redirects to homepage if endpoint not listed.
+*/ 
 function App({dogs}) {
   return (
     <BrowserRouter>
@@ -14,8 +17,8 @@ function App({dogs}) {
         <Route exact path="/dogs" >
           <DogList dogs={dogs}/>
         </Route>
-        <Route path="/dogs/:name" >
-          <DogDetails dog={dogs}/>
+        <Route exact path="/dogs/:name" >
+          <DogDetails dogs={dogs}/>
         </Route>
         <Redirect to="/dogs" />
       </Switch>
